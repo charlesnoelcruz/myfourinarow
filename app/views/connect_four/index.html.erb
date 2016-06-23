@@ -6,11 +6,11 @@
 		var playerTurnMarkerOldHtml = document.getElementById("playerTurnMarker").innerHTML
 		
 		if (playerTurn == "1") {
-			var newHTML = "<span style='background-color:yellow'>" + oldHTML + "</span>";
-			var newPlayerTurnMarkerOldHtml =  "<p style='text-decoration-color:yellow'>Player 2 it's your turn!</p>";
+			var newHTML = "<span style='background-color:#288ae2; width: 100px; height: 100px; border-radius: 50px;'>" + oldHTML + "</span>";
+			var newPlayerTurnMarkerOldHtml =  "<h3 style='color:#5cb85c;'>Player 2 it's your turn!</h3>";
 		}else{
-			var newHTML = "<span style='background-color:red'>" + oldHTML + "</span>";
-			var newPlayerTurnMarkerOldHtml =  "Player 1 it's your turn!";
+			var newHTML = "<span style='background-color:#5cb85c; width: 100px; height: 100px; border-radius: 50px;'>" + oldHTML + "</span>";
+			var newPlayerTurnMarkerOldHtml =  "<h3 style='color:#288ae2;'>Player 1 it's your turn!</h3>";
 		}
 		document.getElementById(indexToStack).innerHTML = newHTML;
 		document.getElementById("playerTurnMarker").innerHTML = newPlayerTurnMarkerOldHtml
@@ -319,71 +319,71 @@
 
 </script>
 <center>
-<button onclick="newGame()">New Game!</button>
-<p id="playerTurnMarker">Player 1 you go first!</p>
+<button class="btn btn-lg btn-success" onclick="newGame()">New Game!</button>
+<h3 id="playerTurnMarker">Player 1 goes first</h3>
 <table border="1"> 
 	<tr>
-		<td><a id='x0y0' href='#' onclick='clickCell("y0")'>x0y0</a></td>
-		<td><a id='x0y1' href='#' onclick='clickCell("y1")'>x0y1</a></td>
-		<td><a id='x0y2' href='#' onclick='clickCell("y2")'>x0y2</a></td>
-		<td><a id='x0y3' href='#' onclick='clickCell("y3")'>x0y3</a></td>
-		<td><a id='x0y4' href='#' onclick='clickCell("y4")'>x0y4</a></td>
-		<td><a id='x0y5' href='#' onclick='clickCell("y5")'>x0y5</a></td>
-		<td><a id='x0y6' href='#' onclick='clickCell("y6")'>x0y6</a></td>
+		<td><a id='x0y0' href='#' onclick='clickCell("y0")'>O</a></td>
+		<td><a id='x0y1' href='#' onclick='clickCell("y1")'>O</a></td>
+		<td><a id='x0y2' href='#' onclick='clickCell("y2")'>O</a></td>
+		<td><a id='x0y3' href='#' onclick='clickCell("y3")'>O</a></td>
+		<td><a id='x0y4' href='#' onclick='clickCell("y4")'>O</a></td>
+		<td><a id='x0y5' href='#' onclick='clickCell("y5")'>O</a></td>
+		<td><a id='x0y6' href='#' onclick='clickCell("y6")'>O</a></td>
 	</tr>
 	<tr>
-		<td><a id='x1y0' href='#' onclick='clickCell("y0")'>x1y0</a></td>
-		<td><a id='x1y1' href='#' onclick='clickCell("y1")'>x1y1</a></td>
-		<td><a id='x1y2' href='#' onclick='clickCell("y2")'>x1y2</a></td>
-		<td><a id='x1y3' href='#' onclick='clickCell("y3")'>x1y3</a></td>
-		<td><a id='x1y4' href='#' onclick='clickCell("y4")'>x1y4</a></td>
-		<td><a id='x1y5' href='#' onclick='clickCell("y5")'>x1y5</a></td>
-		<td><a id='x1y6' href='#' onclick='clickCell("y6")'>x1y6</a></td>
+		<td><a id='x1y0' href='#' onclick='clickCell("y0")'>O</a></td>
+		<td><a id='x1y1' href='#' onclick='clickCell("y1")'>O</a></td>
+		<td><a id='x1y2' href='#' onclick='clickCell("y2")'>O</a></td>
+		<td><a id='x1y3' href='#' onclick='clickCell("y3")'>O</a></td>
+		<td><a id='x1y4' href='#' onclick='clickCell("y4")'>O</a></td>
+		<td><a id='x1y5' href='#' onclick='clickCell("y5")'>O</a></td>
+		<td><a id='x1y6' href='#' onclick='clickCell("y6")'>O</a></td>
 	</tr>	
 	<tr>
-		<td><a id='x2y0' href='#' onclick='clickCell("y0")'>x2y0</a></td>
-		<td><a id='x2y1' href='#' onclick='clickCell("y1")'>x2y1</a></td>
-		<td><a id='x2y2' href='#' onclick='clickCell("y2")'>x2y2</a></td>
-		<td><a id='x2y3' href='#' onclick='clickCell("y3")'>x2y3</a></td>
-		<td><a id='x2y4' href='#' onclick='clickCell("y4")'>x2y4</a></td>
-		<td><a id='x2y5' href='#' onclick='clickCell("y5")'>x2y5</a></td>
-		<td><a id='x2y6' href='#' onclick='clickCell("y6")'>x2y6</a></td>
+		<td><a id='x2y0' href='#' onclick='clickCell("y0")'>O</a></td>
+		<td><a id='x2y1' href='#' onclick='clickCell("y1")'>O</a></td>
+		<td><a id='x2y2' href='#' onclick='clickCell("y2")'>O</a></td>
+		<td><a id='x2y3' href='#' onclick='clickCell("y3")'>O</a></td>
+		<td><a id='x2y4' href='#' onclick='clickCell("y4")'>O</a></td>
+		<td><a id='x2y5' href='#' onclick='clickCell("y5")'>O</a></td>
+		<td><a id='x2y6' href='#' onclick='clickCell("y6")'>O</a></td>
 	</tr>	
 	<tr>
-		<td><a id='x3y0' href='#' onclick='clickCell("y0")'>x3y0</a></td>
-		<td><a id='x3y1' href='#' onclick='clickCell("y1")'>x3y1</a></td>
-		<td><a id='x3y2' href='#' onclick='clickCell("y2")'>x3y2</a></td>
-		<td><a id='x3y3' href='#' onclick='clickCell("y3")'>x3y3</a></td>
-		<td><a id='x3y4' href='#' onclick='clickCell("y4")'>x3y4</a></td>
-		<td><a id='x3y5' href='#' onclick='clickCell("y5")'>x3y5</a></td>
-		<td><a id='x3y6' href='#' onclick='clickCell("y6")'>x3y6</a></td>
+		<td><a id='x3y0' href='#' onclick='clickCell("y0")'>O</a></td>
+		<td><a id='x3y1' href='#' onclick='clickCell("y1")'>O</a></td>
+		<td><a id='x3y2' href='#' onclick='clickCell("y2")'>O</a></td>
+		<td><a id='x3y3' href='#' onclick='clickCell("y3")'>O</a></td>
+		<td><a id='x3y4' href='#' onclick='clickCell("y4")'>O</a></td>
+		<td><a id='x3y5' href='#' onclick='clickCell("y5")'>O</a></td>
+		<td><a id='x3y6' href='#' onclick='clickCell("y6")'>O</a></td>
 	</tr>	
 	<tr>
-		<td><a id='x4y0' href='#' onclick='clickCell("y0")'>x4y0</a></td>
-		<td><a id='x4y1' href='#' onclick='clickCell("y1")'>x4y1</a></td>
-		<td><a id='x4y2' href='#' onclick='clickCell("y2")'>x4y2</a></td>
-		<td><a id='x4y3' href='#' onclick='clickCell("y3")'>x4y3</a></td>
-		<td><a id='x4y4' href='#' onclick='clickCell("y4")'>x4y4</a></td>
-		<td><a id='x4y5' href='#' onclick='clickCell("y5")'>x4y5</a></td>
-		<td><a id='x4y6' href='#' onclick='clickCell("y6")'>x4y6</a></td>
+		<td><a id='x4y0' href='#' onclick='clickCell("y0")'>O</a></td>
+		<td><a id='x4y1' href='#' onclick='clickCell("y1")'>O</a></td>
+		<td><a id='x4y2' href='#' onclick='clickCell("y2")'>O</a></td>
+		<td><a id='x4y3' href='#' onclick='clickCell("y3")'>O</a></td>
+		<td><a id='x4y4' href='#' onclick='clickCell("y4")'>O</a></td>
+		<td><a id='x4y5' href='#' onclick='clickCell("y5")'>O</a></td>
+		<td><a id='x4y6' href='#' onclick='clickCell("y6")'>O</a></td>
 	</tr>	
 	<tr>
-		<td><a id='x5y0' href='#' onclick='clickCell("y0")'>x5y0</a></td>
-		<td><a id='x5y1' href='#' onclick='clickCell("y1")'>x5y1</a></td>
-		<td><a id='x5y2' href='#' onclick='clickCell("y2")'>x5y2</a></td>
-		<td><a id='x5y3' href='#' onclick='clickCell("y3")'>x5y3</a></td>
-		<td><a id='x5y4' href='#' onclick='clickCell("y4")'>x5y4</a></td>
-		<td><a id='x5y5' href='#' onclick='clickCell("y5")'>x5y5</a></td>
-		<td><a id='x5y6' href='#' onclick='clickCell("y6")'>x5y6</a></td>
+		<td><a id='x5y0' href='#' onclick='clickCell("y0")'>O</a></td>
+		<td><a id='x5y1' href='#' onclick='clickCell("y1")'>O</a></td>
+		<td><a id='x5y2' href='#' onclick='clickCell("y2")'>O</a></td>
+		<td><a id='x5y3' href='#' onclick='clickCell("y3")'>O</a></td>
+		<td><a id='x5y4' href='#' onclick='clickCell("y4")'>O</a></td>
+		<td><a id='x5y5' href='#' onclick='clickCell("y5")'>O</a></td>
+		<td><a id='x5y6' href='#' onclick='clickCell("y6")'>O</a></td>
 	</tr>	
 	<tr>
-		<td><a id='x6y0' href='#' onclick='clickCell("y0")'>x6y0</a></td>
-		<td><a id='x6y1' href='#' onclick='clickCell("y1")'>x6y1</a></td>
-		<td><a id='x6y2' href='#' onclick='clickCell("y2")'>x6y2</a></td>
-		<td><a id='x6y3' href='#' onclick='clickCell("y3")'>x6y3</a></td>
-		<td><a id='x6y4' href='#' onclick='clickCell("y4")'>x6y4</a></td>
-		<td><a id='x6y5' href='#' onclick='clickCell("y5")'>x6y5</a></td>
-		<td><a id='x6y6' href='#' onclick='clickCell("y6")'>x6y6</a></td>
+		<td><a id='x6y0' href='#' onclick='clickCell("y0")'>O</a></td>
+		<td><a id='x6y1' href='#' onclick='clickCell("y1")'>O</a></td>
+		<td><a id='x6y2' href='#' onclick='clickCell("y2")'>O</a></td>
+		<td><a id='x6y3' href='#' onclick='clickCell("y3")'>O</a></td>
+		<td><a id='x6y4' href='#' onclick='clickCell("y4")'>O</a></td>
+		<td><a id='x6y5' href='#' onclick='clickCell("y5")'>O</a></td>
+		<td><a id='x6y6' href='#' onclick='clickCell("y6")'>O</a></td>
 	</tr>	
 	
 </table>
