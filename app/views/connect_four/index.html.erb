@@ -1,0 +1,390 @@
+<script type="text/javascript">
+	function clickCell(index){
+		var playerTurn = whosTurnIsIt()
+		var indexToStack = whatIndexToStack(index,playerTurn)
+		var oldHTML = document.getElementById(indexToStack).innerHTML;
+		var playerTurnMarkerOldHtml = document.getElementById("playerTurnMarker").innerHTML
+		
+		if (playerTurn == "1") {
+			var newHTML = "<span style='background-color:yellow'>" + oldHTML + "</span>";
+			var newPlayerTurnMarkerOldHtml =  "<p style='text-decoration-color:yellow'>Player 2 it's your turn!</p>";
+		}else{
+			var newHTML = "<span style='background-color:red'>" + oldHTML + "</span>";
+			var newPlayerTurnMarkerOldHtml =  "Player 1 it's your turn!";
+		}
+		document.getElementById(indexToStack).innerHTML = newHTML;
+		document.getElementById("playerTurnMarker").innerHTML = newPlayerTurnMarkerOldHtml
+
+
+
+		// check if somebody won already
+		var winningPlayer = ""
+		winningPlayer = whoWon()
+		if (winningPlayer != "none yet") {
+			alert("Player " + winningPlayer + " won the match!")
+			newGame()
+		}
+		// check if somebody won already
+
+	}
+
+	function whoWon(){
+		var winFlag
+		var player = 1 
+		var returnWinner = "none yet"
+			while (player != 3){
+				winFlag = checkHorizontal(player)
+				if (winFlag == player)	{
+					return player
+				}
+				winFlag = checkVertical(player)
+				if (winFlag == player)	{
+					return player
+				}
+				winFlag = checkSlantLeftToRight(player)
+				if (winFlag == player)	{
+					return player
+				}
+				winFlag = checkSlantRightToLeft(player)
+				if (winFlag == player)	{
+					return player
+				}				
+				player++
+			}
+		return returnWinner
+		
+		/*
+			winFlag = checkSlantRightToLeft(1)
+			if (winFlag == 1){
+				alert("Player " + winFlag + " won!")
+			}
+		*/
+
+	}
+	//new one
+	function checkSlantRightToLeft(player){
+		var y = 6 
+		var x
+		var tmpx = 0 
+		var tmpy = 0
+		var playerCellTag = ""
+		var winningCount
+		var previousPlayerCellTag = "" 
+		var firstPass 
+		while (y >= 0) { //direction Y loop per column right to left 
+			x = 6 
+			while ( x >= 0) { //direction X move bottom to top
+				tmpx = x
+				tmpy = y 
+				winningCount = 0
+				firstPass = 1 
+				while (  readCookie("x" + tmpx.toString() + "y" + tmpy.toString()) != "empty" ) {
+					playerCellTag = readCookie("x" + tmpx.toString() + "y" + tmpy.toString())
+					if (firstPass == "1"){ 
+						if (playerCellTag == player) {
+							winningCount++
+							firstPass = 0 
+						}
+						if (winningCount>=4) {
+							return player
+						}
+					}else{
+						if (previousPlayerCellTag == playerCellTag){ 
+							if (playerCellTag == player) {
+								winningCount++
+							}
+							if (winningCount>=4) {
+								return player
+							}						
+						}
+					}
+					previousPlayerCellTag = playerCellTag
+					tmpx--
+					tmpy--
+				} 
+				x--
+			}
+			y-- 
+		}		
+	}
+
+	function checkSlantLeftToRight(player){
+		var y = 0 
+		var x
+		var tmpx = 0 
+		var tmpy = 0
+		var playerCellTag = ""
+		var winningCount
+		var previousPlayerCellTag = "" 
+		var firstPass 
+		while (y <= 7) { //direction Y loop per column left to tight
+			x = 6 
+			while ( x >= 0) { //direction X move bottom to top
+				tmpx = x
+				tmpy = y 
+				winningCount = 0
+				firstPass = 1
+				while (  readCookie("x" + tmpx.toString() + "y" + tmpy.toString()) != "empty" ) {
+					playerCellTag = readCookie("x" + tmpx.toString() + "y" + tmpy.toString())
+					if (firstPass == "1"){ 
+						if (playerCellTag == player) {
+							winningCount++
+							firstPass = 0
+						}
+						if (winningCount>=4) {
+							return player
+						}
+					}else{
+						if (previousPlayerCellTag == playerCellTag){ 
+							if (playerCellTag == player) {
+								winningCount++
+
+							}
+							if (winningCount>=4) {
+								return player
+							}						
+						}
+					}
+					previousPlayerCellTag = playerCellTag
+					tmpx--
+					tmpy++
+				} 
+				x--
+			}
+			y++ 
+		}
+	}
+
+	function checkVertical(player){
+		var y = 0
+		var x
+		var playerCellTag
+		var winningCount
+		var previousPlayerCellTag = "" 
+		var firstPass 
+		while (y <= 6) { //Y direction from farthest left to right
+			x = 6
+			winningCount = 0
+			firstPass=1
+			while ( x >= 0){// X direction from bottom to top
+				playerCellTag = readCookie("x" + x.toString() + "y" + y.toString())
+				if ( playerCellTag != "empty" ) {
+					if (firstPass == "1") {
+						if (playerCellTag==player){ //check if this belongs to current player
+							firstPass = 0
+							winningCount ++	
+						}
+						if (winningCount >= 4) { //winning mark is 4 consecutive connection
+							return player
+						}
+					}else{
+						if  (previousPlayerCellTag == playerCellTag) {
+							if (playerCellTag==player){ //check if this belongs to current player
+								winningCount ++	
+							}
+							if (winningCount >= 4) { //winning mark is 4 consecutive connection
+								return player
+							}						
+						}
+					}
+					previousPlayerCellTag = playerCellTag
+				}				
+				x-- 
+			}
+			y++
+		}
+	}
+
+	function checkHorizontal(player){
+		var x = 6
+		var y
+		var winningCount
+		var playerCellTag
+		var previousPlayerCellTag = "" 
+		var firstPass 
+		while (x >= 0 ) {//X direction from bottom to top
+			y=0
+			winningCount = 0
+			firstPass=1
+			while (y != 7) {  //Y direction from farthest left to right 				
+				playerCellTag = readCookie("x" + x.toString() + "y" + y.toString())
+				if ( playerCellTag != "empty" ) {
+					if (firstPass == "1") {
+						if (playerCellTag==player){ //check if this belongs to current player
+							firstPass = 0
+							winningCount ++	
+						}
+						if (winningCount >= 4) { //winning mark is 4 consecutive connection
+							return player
+						}
+					}else{
+						if  (previousPlayerCellTag == playerCellTag) {
+							if (playerCellTag==player){ //check if this belongs to current player
+									winningCount ++	
+							}else{
+								winningCount = 0 //rest to zero
+							}
+							if (winningCount >= 4) { //winning mark is 4 consecutive connection
+								return player
+							}						
+						}
+					}
+					previousPlayerCellTag = playerCellTag
+				}else{
+					winningCount = 0 
+				}
+				y++
+			}
+			x-- 
+		}
+	}
+
+	function whatIndexToStack(indexStack,playerTurn){
+		var i = 6
+		//loop from 0 to 6 to loop thru our x axis , y axis is static 
+		//alert("x"+i.toString() + indexStack )
+		while (i >= 0){
+			if ( readCookie("x"+i.toString()+indexStack) == "empty" ){ //get cookie by coordinates x and y, if cookie is empty, we return that coordinate for usage
+				//alert( "x"+i.toString()+indexStack )
+				createCookie("x"+i.toString()+indexStack,playerTurn,0)
+				return "x"+i.toString()+indexStack
+			}
+			i--
+		} 
+		
+
+	}
+
+	function whosTurnIsIt(){
+		var playerTurn = readCookie("playerTurn")
+		if (playerTurn == "empty") {
+			createCookie("playerTurn",1,0)
+			playerTurn = readCookie("playerTurn")
+		}else if (playerTurn == "2") {
+			eraseCookie("playerTurn")
+			createCookie("playerTurn",1,0)
+			playerTurn = readCookie("playerTurn")
+		}else if (playerTurn == "1") {
+			eraseCookie("playerTurn")
+			createCookie("playerTurn",2,0)
+			playerTurn = readCookie("playerTurn")			
+		}
+		return playerTurn
+	}
+
+	function newGame(){
+		eraseCookie("playerTurn")
+		clearCoordinateCookie()
+		location.reload()
+	}
+
+	function clearCoordinateCookie(){
+		var x
+		var y = 6
+		while (y >= 0){
+			x = 6
+			while (x >= 0){
+				eraseCookie("x" + x.toString() + "y" + y.toString())
+				x--
+			}
+			y--
+		}
+	}
+
+	function createCookie(name,value,days) {
+		if (days) {
+			var date = new Date();
+			date.setTime(date.getTime()+(days*24*60*60*1000));
+			var expires = "; expires="+date.toGMTString();
+		}
+		else var expires = "";
+		document.cookie = name+"="+value+expires+"; path=/";
+	}
+
+	function readCookie(name) {
+		var nameEQ = name + "=";
+		var ca = document.cookie.split(';');
+		for(var i=0;i < ca.length;i++) {
+			var c = ca[i];
+			while (c.charAt(0)==' ') c = c.substring(1,c.length);
+			if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+		}
+		return "empty";
+	}
+
+	function eraseCookie(name) {
+		createCookie(name,"",-1);
+	}
+
+
+</script>
+<center>
+<button onclick="newGame()">New Game!</button>
+<p id="playerTurnMarker">Player 1 you go first!</p>
+<table border="1"> 
+	<tr>
+		<td><a id='x0y0' href='#' onclick='clickCell("y0")'>x0y0</a></td>
+		<td><a id='x0y1' href='#' onclick='clickCell("y1")'>x0y1</a></td>
+		<td><a id='x0y2' href='#' onclick='clickCell("y2")'>x0y2</a></td>
+		<td><a id='x0y3' href='#' onclick='clickCell("y3")'>x0y3</a></td>
+		<td><a id='x0y4' href='#' onclick='clickCell("y4")'>x0y4</a></td>
+		<td><a id='x0y5' href='#' onclick='clickCell("y5")'>x0y5</a></td>
+		<td><a id='x0y6' href='#' onclick='clickCell("y6")'>x0y6</a></td>
+	</tr>
+	<tr>
+		<td><a id='x1y0' href='#' onclick='clickCell("y0")'>x1y0</a></td>
+		<td><a id='x1y1' href='#' onclick='clickCell("y1")'>x1y1</a></td>
+		<td><a id='x1y2' href='#' onclick='clickCell("y2")'>x1y2</a></td>
+		<td><a id='x1y3' href='#' onclick='clickCell("y3")'>x1y3</a></td>
+		<td><a id='x1y4' href='#' onclick='clickCell("y4")'>x1y4</a></td>
+		<td><a id='x1y5' href='#' onclick='clickCell("y5")'>x1y5</a></td>
+		<td><a id='x1y6' href='#' onclick='clickCell("y6")'>x1y6</a></td>
+	</tr>	
+	<tr>
+		<td><a id='x2y0' href='#' onclick='clickCell("y0")'>x2y0</a></td>
+		<td><a id='x2y1' href='#' onclick='clickCell("y1")'>x2y1</a></td>
+		<td><a id='x2y2' href='#' onclick='clickCell("y2")'>x2y2</a></td>
+		<td><a id='x2y3' href='#' onclick='clickCell("y3")'>x2y3</a></td>
+		<td><a id='x2y4' href='#' onclick='clickCell("y4")'>x2y4</a></td>
+		<td><a id='x2y5' href='#' onclick='clickCell("y5")'>x2y5</a></td>
+		<td><a id='x2y6' href='#' onclick='clickCell("y6")'>x2y6</a></td>
+	</tr>	
+	<tr>
+		<td><a id='x3y0' href='#' onclick='clickCell("y0")'>x3y0</a></td>
+		<td><a id='x3y1' href='#' onclick='clickCell("y1")'>x3y1</a></td>
+		<td><a id='x3y2' href='#' onclick='clickCell("y2")'>x3y2</a></td>
+		<td><a id='x3y3' href='#' onclick='clickCell("y3")'>x3y3</a></td>
+		<td><a id='x3y4' href='#' onclick='clickCell("y4")'>x3y4</a></td>
+		<td><a id='x3y5' href='#' onclick='clickCell("y5")'>x3y5</a></td>
+		<td><a id='x3y6' href='#' onclick='clickCell("y6")'>x3y6</a></td>
+	</tr>	
+	<tr>
+		<td><a id='x4y0' href='#' onclick='clickCell("y0")'>x4y0</a></td>
+		<td><a id='x4y1' href='#' onclick='clickCell("y1")'>x4y1</a></td>
+		<td><a id='x4y2' href='#' onclick='clickCell("y2")'>x4y2</a></td>
+		<td><a id='x4y3' href='#' onclick='clickCell("y3")'>x4y3</a></td>
+		<td><a id='x4y4' href='#' onclick='clickCell("y4")'>x4y4</a></td>
+		<td><a id='x4y5' href='#' onclick='clickCell("y5")'>x4y5</a></td>
+		<td><a id='x4y6' href='#' onclick='clickCell("y6")'>x4y6</a></td>
+	</tr>	
+	<tr>
+		<td><a id='x5y0' href='#' onclick='clickCell("y0")'>x5y0</a></td>
+		<td><a id='x5y1' href='#' onclick='clickCell("y1")'>x5y1</a></td>
+		<td><a id='x5y2' href='#' onclick='clickCell("y2")'>x5y2</a></td>
+		<td><a id='x5y3' href='#' onclick='clickCell("y3")'>x5y3</a></td>
+		<td><a id='x5y4' href='#' onclick='clickCell("y4")'>x5y4</a></td>
+		<td><a id='x5y5' href='#' onclick='clickCell("y5")'>x5y5</a></td>
+		<td><a id='x5y6' href='#' onclick='clickCell("y6")'>x5y6</a></td>
+	</tr>	
+	<tr>
+		<td><a id='x6y0' href='#' onclick='clickCell("y0")'>x6y0</a></td>
+		<td><a id='x6y1' href='#' onclick='clickCell("y1")'>x6y1</a></td>
+		<td><a id='x6y2' href='#' onclick='clickCell("y2")'>x6y2</a></td>
+		<td><a id='x6y3' href='#' onclick='clickCell("y3")'>x6y3</a></td>
+		<td><a id='x6y4' href='#' onclick='clickCell("y4")'>x6y4</a></td>
+		<td><a id='x6y5' href='#' onclick='clickCell("y5")'>x6y5</a></td>
+		<td><a id='x6y6' href='#' onclick='clickCell("y6")'>x6y6</a></td>
+	</tr>	
+	
+</table>
+</center>
